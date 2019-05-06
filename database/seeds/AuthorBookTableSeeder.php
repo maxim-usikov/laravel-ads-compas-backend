@@ -16,9 +16,9 @@ class AuthorBookTableSeeder extends Seeder
         $authors = App\Author::all();
         $books = App\Book::all();
 
-        $authors->each(function($author) use($books) {
-            $ids = $books->random(rand(3, 5))->pluck('id')->toArray();
-            $author->books()->sync($ids);
+        $books->each(function($book) use($authors) {
+            $ids = $authors->random(rand(3, 5))->pluck('id')->toArray();
+            $book->authors()->sync($ids);
         });
     }
 }
