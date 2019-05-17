@@ -14,8 +14,31 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new BookCollection(Book::with('authors')->paginate(10));
+        // NOTE: can be refactored with Request class and Model scopes
+        // NOTE: or custom fitler implementation
+        $perPage = 10;
+        $query = Book::query();
+
+        if ($request->filled('title')) {
+            $query->where('title', 'like', "%{$request->get('title')}%");
+        }
+
+        if ($request->filled('authorName')) {
+            $authorName = $request->get('authorName');
+            $authorNameFilter = function ($query) use ($authorName) {
+                $query->where('name', 'like', "%{$authorName}%");
+            };
+
+            $query->with(['authors' => $authorNameFilter])
+                  ->whereHas('authors', $authorNameFilter);
+        } else {
+            $query->with('authors');
+        }
+
+        $books = $query->paginate($perPage);
+
+        return new BookCollection($books);
     }
 }
