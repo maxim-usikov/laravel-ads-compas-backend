@@ -26,7 +26,6 @@ class BookController extends Controller
         }
 
         // NOTE: fetch with all authors
-        /*
         if ($request->filled('authorName')) {
             $authorName = $request->get('authorName');
             $authorNameFilter = function ($query) use ($authorName) {
@@ -37,9 +36,9 @@ class BookController extends Controller
         }
 
         $query->with('authors');
-         */
 
         // NOTE: fetch only authors that match authorName
+        /*
         if ($request->filled('authorName')) {
             $authorName = $request->get('authorName');
             $authorNameFilter = function ($query) use ($authorName) {
@@ -51,6 +50,7 @@ class BookController extends Controller
         } else {
             $query->with('authors');
         }
+         */
 
         $books = $query->paginate($perPage);
 
