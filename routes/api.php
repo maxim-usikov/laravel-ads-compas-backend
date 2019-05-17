@@ -18,6 +18,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/me', function (Request $request) {
         return new UserResource($request->user());
     });
+
+    Route::get('/search/books', 'API\SearchBookController')
+        ->name('search.books');
 });
 
 Route::apiResource('books', 'API\BookController')->only(['index']);
