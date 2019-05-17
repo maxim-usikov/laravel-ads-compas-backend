@@ -25,6 +25,21 @@ class BookController extends Controller
             $query->where('title', 'like', "%{$request->get('title')}%");
         }
 
+        // NOTE: fetch with all authors
+        /*
+        if ($request->filled('authorName')) {
+            $authorName = $request->get('authorName');
+            $authorNameFilter = function ($query) use ($authorName) {
+                $query->where('name', 'like', "%{$authorName}%");
+            };
+
+            $query->whereHas('authors', $authorNameFilter);
+        }
+
+        $query->with('authors');
+         */
+
+        // NOTE: fetch only authors that match authorName
         if ($request->filled('authorName')) {
             $authorName = $request->get('authorName');
             $authorNameFilter = function ($query) use ($authorName) {
