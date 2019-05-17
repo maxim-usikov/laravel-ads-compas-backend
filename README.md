@@ -7,12 +7,16 @@ Backend for [vue-ads-compas-frontend](https://github.com/maxim-usikov/vue-ads-co
 ```bash
 composer install
 cp .env.example .env
+# after copy fill values
+
 artisan key:generate
 artisan migrate
 artisan db:seed
+
 artisan passport:install 
 # copy password grant client credentials for vue-ads-compas-frontend env
 # it will be with ID: 2
+
 # or generate new ones
 artisan passport:install --force
 ```
