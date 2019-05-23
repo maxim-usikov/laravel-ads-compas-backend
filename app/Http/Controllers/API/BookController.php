@@ -37,21 +37,6 @@ class BookController extends Controller
 
         $query->with('authors');
 
-        // NOTE: fetch only authors that match authorName
-        /*
-        if ($request->filled('authorName')) {
-            $authorName = $request->get('authorName');
-            $authorNameFilter = function ($query) use ($authorName) {
-                $query->where('name', 'like', "%{$authorName}%");
-            };
-
-            $query->with(['authors' => $authorNameFilter])
-                  ->whereHas('authors', $authorNameFilter);
-        } else {
-            $query->with('authors');
-        }
-         */
-
         $books = $query->paginate($perPage);
 
         return new BookCollection($books);
